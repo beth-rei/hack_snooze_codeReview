@@ -1,3 +1,5 @@
+//contains code for starting UI of application/other miscellanous things
+
 "use strict";
 
 // So we don't have to keep re-finding things on page, find DOM elements once:

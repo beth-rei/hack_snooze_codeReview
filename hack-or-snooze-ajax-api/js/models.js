@@ -1,3 +1,10 @@
+//this file is containing classes that focus on the data 
+//and logic for that data
+//contains classes to manage data of the app and connect to API
+//UI stuff shouldn't go here
+
+
+//Strict changes some previously-accepted mistakes into errors.
 "use strict";
 
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
@@ -55,7 +62,7 @@ class StoryList {
 
     // query the /stories endpoint (no auth required)
     const response = await axios({
-      url: `${"http://hack-or-snooze-v3.herokuapp.com"}/stories`,
+      url: `${BASE_URL}/stories`,
       method: "GET",
     });
 
@@ -73,8 +80,13 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
+  async addStory(user, { title, author, url }) {
+    const token = user.loginToken;
+    const response = await axios({
+      method: "POST",
+      url: `${BASE_URL}/stories`,
+      data: { token, story: { title, author, url }},
+    });
   }
 }
 
