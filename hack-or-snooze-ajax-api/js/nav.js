@@ -1,3 +1,6 @@
+//contains code to show/hide things in nav bar, as well as
+//code for when the user click in that bar
+
 "use strict";
 
 /******************************************************************************
