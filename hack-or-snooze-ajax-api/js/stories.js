@@ -10,7 +10,7 @@ let storyList;
 async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
-
+  console.log(storyList);
   putStoriesOnPage();
 }
 
@@ -55,12 +55,12 @@ function getDeleteBtnHTML() {
  * if starType isFavorite use solid star, otherwise use empty star*/
 
 function getStarHTML(story, user) {
+  console.debug("getStarHTML");
   const isFavorite = user.isFavorite(story);
   const starType = isFavorite ? "fas" : "far";
-
   return `
       <span class="star">
-        <i class=${starType} fa-star"></i>
+        <i class="${starType} fa-star"></i>
       </span>`;
 }
 
@@ -74,7 +74,7 @@ function putStoriesOnPage() {
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
     const $story = generateStoryMarkup(story);
-    $allStoriesList.($story);
+    $allStoriesList.append($story);
   }
 
   $allStoriesList.show();
@@ -103,13 +103,13 @@ async function submitNewStory(evt) {
   evt.preventDefault();
 
   //grab all info from form
-  const title = $("//#region create-title").val();
+  const title = $("#create-title").val();
   const url = $("#create-url").val();
   const author = $("#create-author").val();
   const username = currentUser.username;
   const storyData = {title, url, author, username};
 
-  const story = await story.List.addStory(currentUser, storyData);
+  const story = await storyList.addStory(currentUser, storyData);
 
   const $story = generateStoryMarkup(story);
   $allStoriesList.prepend($story);
@@ -170,7 +170,7 @@ async function toggleStoryFavorite(evt) {
 
   const $tgt = $(evt.target);
   const $closestLi = $tgt.closest("li");
-  const storyId = $closetLi.attr("id");
+  const storyId = $closestLi.attr("id");
   const story = storyList.stories.find(s => s.storyId === storyId);
 
   // see if the item is already favorited (checking by presence of star)

@@ -123,3 +123,13 @@ async function updateUIOnUserLogin() {
   updateNavOnLogin();
   generateUserProfile();
 }
+
+/** Show a "user profile" part of page built from the current user's info. */
+
+function generateUserProfile() {
+  console.debug("generateUserProfile");
+
+  $("#profile-name").text(currentUser.name);
+  $("#profile-username").text(currentUser.username);
+  $("#profile-account-date").text(currentUser.createdAt.slice(0, 10));
+}
